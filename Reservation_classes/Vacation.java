@@ -10,14 +10,16 @@ public class Vacation {
 
 	private double price;
 	
-	public Vacation(String country, String city, String season, double price) {
+	private int vacation_id;
+	
+	public Vacation(String country, String city, String season, double price, int vacation_id) {
 		this.country = country;
 		this.city = city;
 		this.season = season;
 	}
 	
 	public String toString() {
-		return "country: " + this.country + "\tcity: " + this.city + "\tseason " + this.season + "\tprice: " + this.price;
+		return "country: " + this.country + "\tcity: " + this.city + "\tseason " + this.season + "\tprice: " + this.price + "\tid: " + vacation_id;
 	}
 
 }
