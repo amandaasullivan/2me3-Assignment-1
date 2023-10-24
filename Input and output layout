@@ -71,21 +71,26 @@ user input:
           break
         else:
           "Not a valid input"
+          *loop back to check-out*
     else:
-      *print arraylist of bookings (i.e. bookingID | item (vacation or car) | start-date - end-date | price)*
       "Which memebership do you have?
        1. Regular
        2. Silver
        3. Gold                       "
       user input:
         if 1:
-          discount <- *sum of all prices* - (*sum of all prices* x discount)
+          total_cost <- *sum of all prices* 
         else if 2:
+          total_cost <- *sum of all prices* - (*sum of all prices* x 10%)
         else if 3:
-        else:  
-      
+          total_cost <- *sum of all prices* - (*sum of all prices* x 20%)
+        else:   
+          "Not a valid membership"
+          *loop back to memberships*
+      *print arraylist of bookings (i.e. bookingID | item (vacation or car) | start-date - end-date | price)*
+      "Total cost for bookings: *total_cost* "
   else:
-    "Not a valid input"
+    "Not a valid option"
     *loop back to Main Menu*
 
       
