@@ -1,16 +1,37 @@
-"Renting a car or book a vacation?:
-enter 1 for car or 2 for vacation"
-user input: 1 or 2
-  1 (car):
-    * Show a numbered list of available cars for rental*
-    user input: a number from the list, linked to the car
+"Renting a car or booking a vacation?:
+  1. rent a car
+  2. book a vacation
+  3. continue to check-out         "
 
+user input: 
+  1 (car):
+    * Show the numbered list of available cars for rental*
+    user input: # from the list, linked to desired car (carName)
+      
     "Start-date for rental"
-    user input
+      user input: start-date
     "End-date for rental"
-    user input
+      user input: end-date
+    "Create a userID (i.e. first & last names):"
+      user input: userID
+
+    bookingID <- randomly generated
     
+    *create a new booking item*
+    (in: start-date, end-date, userID, carName ; out: bookingID)
+    **
 
   2 (vacation):
     * Show a numbered list of available vacations for booking*
     user input: a number from the list, linked to the vacation
+
+  3. (check-out):
+    if the list for bookings is empty:
+      "Your cart is empty, would you like to return to the main menu? Y/N"
+      user input: 
+        Y (yes):
+          go to the beginning of the loop
+        N (no):
+          end
+          
+          
