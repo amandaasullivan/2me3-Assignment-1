@@ -89,9 +89,13 @@ user input:
           *loop back to memberships*
       *print arraylist of bookings (i.e. bookingID | item (vacation or car) | start-date - end-date | price)*
       "Total cost for bookings: *total_cost* "
+      break
+
   else:
     "Not a valid option"
     *loop back to Main Menu*
+
+"Business Revenue - *total_cost*" (is there more than one client?? If there is then the revenue would be a sum of a list of total_costs)
 
       
           
