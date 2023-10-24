@@ -1,0 +1,16 @@
+"Renting a car or book a vacation?:
+enter 1 for car or 2 for vacation"
+user input: 1 or 2
+  1 (car):
+    * Show a numbered list of available cars for rental*
+    user input: a number from the list, linked to the car
+
+    "Start-date for rental"
+    user input
+    "End-date for rental"
+    user input
+    
+
+  2 (vacation):
+    * Show a numbered list of available vacations for booking*
+    user input: a number from the list, linked to the vacation
