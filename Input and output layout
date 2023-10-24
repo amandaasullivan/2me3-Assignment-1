@@ -2,10 +2,11 @@
   1. rent a car
   2. book a vacation
   3. cancel a booking
-  4. continue to check-out         "
+  4. continue to check-out      
+  (Enter 1, 2, 3, or 4)               "
 
 user input: 
-  1 (car):
+  if 1 (car):
     * Show the numbered list of available cars for rental*
     user input: # from the list, linked to desired car (carName)
       
@@ -16,13 +17,15 @@ user input:
     "Create a userID (i.e. first & last names):"
       user input: userID
 
-    bookingID <- randomly generated
+    bookingID <- randomly generated (doesn't have to be)
     
     *create a new booking item*
     (in: start-date, end-date, userID, carName ; out: bookingID)
     *add booking to listarray of bookings*
 
-  2 (vacation):
+    break
+
+  else if 2 (vacation):
     * Show a numbered list of available vacations for booking*
     user input: a number from the list, linked to the vacation (vacationName)
 
@@ -39,28 +42,51 @@ user input:
     (in: start-date, end-date, userID, vacationName ; out: bookingID)
     *add booking to arraylist of bookings*
 
-  3. (cancel booking):
-    *show the bookingID and their vacation/car (ex. 592: Bahamas, 621: Honda Accord) *
-    "Enter booking Id you'd like to cancel"
-      user input: bookingID
-        "Remove bookingID from bookings? Y/N"
-        if Y:
-          *remove booking item from the arraylist*
-        else if N:
-          loop
-        else:
-          "Not a valid answer"
-          loop
-    
+    break
 
-  4. (check-out):
-    if the list for bookings is empty:
+  else if 3 (cancel booking):
+    *show the bookingIDs and their corresponding vacation/car (ex. 592: Bahamas, 621: Honda Accord) *
+    "Enter booking ID you want to cancel or type EXIT to return to Main Menu"
+      user input: 
+        if "*bookingID*":
+          "Remove *bookingID* from bookings? Y/N"
+          if "Y":
+            *remove booking item from the arraylist*
+            *loop back to beginning of cancel bookings*
+          else if "N":
+            *loop back to beginning of cancel bookings*
+          else:
+            "Not a valid input"
+            *loop back to beginning of cancel bookings*
+        else if "EXIT":
+          break
+  
+  else if 4 (check-out):
+    if bookings arraylist == null:
       "Your cart is empty, would you like to return to the main menu? Y/N"
       user input: 
-        Y (yes):
-          go to the beginning of the loop
-        N (no):
-          end
+        if "Y":
+          *loop back to Main Menu *
+        else if "N":
+          break
+        else:
+          "Not a valid input"
     else:
+      *print arraylist of bookings (i.e. bookingID | item (vacation or car) | start-date - end-date | price)*
+      "Which memebership do you have?
+       1. Regular
+       2. Silver
+       3. Gold                       "
+      user input:
+        if 1:
+          discount <- *sum of all prices* - (*sum of all prices* x discount)
+        else if 2:
+        else if 3:
+        else:  
+      
+  else:
+    "Not a valid input"
+    *loop back to Main Menu*
+
       
           
