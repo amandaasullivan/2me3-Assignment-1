@@ -13,186 +13,209 @@ public class program {
 		company company = new company();
 		boolean repeat = true;
 		
-		System.out.println("Enter a user ID");
-		String userID = input.next(); //stored in client class
-		
-		//these new lists i made are irrelevant
-		//list of current bookings
-		List bookings = new ArrayList(); //list_of_bookings input is client interface
-		for (int i = 0; i < company.list_of_bookings.size(); i ++) {
-			bookings.add("\t" + company.list_of_bookings.get(i).toString());
-		}
-		
-		//reference to: public ArrayList<car> list_of_cars = new ArrayList<car>();
-		//list of cars available
-		List cars_available = new ArrayList (); //list_of_cars input is company interface
-		for (int i = 0; i < company.list_of_cars.size(); i ++) {
-			cars_available.add("\t" + company.list_of_cars.get(i).toString());
-		}
-		
 		do {
 			//main menu
 			System.out.println("What would you like to do today? Type the number associated with request. "
-					+ "\n\t1. Rent a car"
-					+ "\n\t2. Book a vacation"
-					+ "\n\t3. Cancel a booking "
-					+ "\n\t4. List bookings "
-					+ "\n\t5. Check-out"
+					+ "\nClient Options"
+					+ "\n--------------"
+					+ "\n\t1. Enter user ID"
+					+ "\nEmployee Options"
+					+ "\n----------------"
+					+ "\n\t2. Create a car"
+					+ "\n\t3. Create a vacation"
 				);
 			int action = input.nextInt();
 			
-			if (action == 1){ //rent a car
- 				System.out.println("List of cars: "); //prints the list of cars and corresponding info
-				for (int i = 0; i < company.list_of_cars.size(); i ++) {
-					System.out.println("\t" + company.list_of_cars.get(i).toString());
+			//idk where to initialize there for now
+			double price = 0.0;
+			int booking_id = 0;
+			int car_id = 0;
+			int vacation_id;
+			boolean exit = false;
+			
+			while (action == 1 && exit == false){ //enter user ID
+					System.out.println("Enter a user ID:");
+					String client_id = input.next();
+					
+					System.out.println(
+							  "\n\t1. Rent a car"
+							+ "\n\t2. Book a vacation"
+							+ "\n\t3. Cancel a booking "
+							+ "\n\t4. List bookings "
+							+ "\n\t5. Check-out"
+							+ "\n\t6. Exit to Main Menu");
+					int userAction = input.nextInt();
+					if (userAction == 1){ //rent a car
+		 				System.out.println("List of cars: "); //prints the list of cars and corresponding info
+						for (int i = 0; i < company.list_of_cars.size(); i ++) {
+							System.out.println("\t" + company.list_of_cars.get(i).toString());
+						}
+						
+						//referencing the license plate via arrayList
+						System.out.println("Car ID:");
+						String carID = input.next();
+						
+						//searching for car via license plate
+						for (int i = 0; i < company.list_of_cars.size(); i ++) {
+						    if (String.valueOf(company.list_of_cars.get(i).getCar_id()).equals(carID)) {
+						        System.out.println("Car found:");
+						        System.out.println(company.list_of_cars.get(i));
+						        break;
+						    }
+						}
+						
+						//BOOKING INPUT
+						//time formatter - should make a formatter method
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+						//part of client interface 
+						System.out.println("Start-date for rental (yyyy-MM-dd): ");
+						String start_date = input.next();
+			            LocalDate startDate = LocalDate.parse(start_date, formatter);
+						System.out.println("End-date for rental (yyyy-MM-dd): ");
+						String end_date = input.next();
+			            LocalDate endDate = LocalDate.parse(end_date, formatter);
+			            System.out.println("This date is not (yyyy-MM-dd)");
+						
+						//ADDING TO BOOKING
+						booking newBooking = new booking(startDate, endDate, booking_id, car_id, price);
+						company.addBooking(newBooking);
+						
+						continue; //return to beginning of do-while loop
+					}
+					
+		 			else if (userAction == 2){ //book a vacation
+		 				
+		 				System.out.println("List of vacations:"); //prints the list of vacations and corresponding info
+						for (int i = 0; i < company.list_of_vacations.size(); i ++) {
+							System.out.println("\t" + company.list_of_vacations.get(i).toString());
+						}
+						
+						//referencing the city name via arrayList
+						System.out.println("Vacation ID: ");
+						String vacationID = input.next();
+						
+						//searching for car via license plate
+						for (vacation availableVacations : company.list_of_vacations) {
+						    if (availableVacations.getCity().equals(vacationID)) {
+						        System.out.println("City found:");
+						        System.out.println(availableVacations.toString());
+						        continue; //is break better?
+						    }
+						}
+						
+						//BOOKING INPUT
+						//part of client interface (also refer to Amanada's code)
+		 				System.out.println("Start-date of vacation: ");
+						String start_date = input.next();
+						System.out.println("End-date of vacation: ");
+						String end_date = input.next();
+						//part of company interface
+						// ... 
+						continue;
+		 			}
+		 			else if (userAction == 3){ //CANCELLING A BOOKING
+		 				
+		 				System.out.println("List of bookings:"); //prints the list of bookings and corresponding info
+						for (int i = 0; i < company.list_of_bookings.size(); i ++) {
+							System.out.println("\t" + company.list_of_bookings.get(i).toString());
+						}
+						
+		 				System.out.println("Enter booking ID you want to "
+		 						+ "cancel or type EXIT to return to Main "
+		 						+ "Menu");
+		 				String book = input.next();
+		 				
+						//searching for booking via booking ID
+						for (int i = 0; i < company.list_of_bookings.size(); i++) {
+						    if (String.valueOf(company.list_of_bookings.get(i).getBooking_id()).equals(book)) {
+						        System.out.println("Booking found:");
+						        System.out.println(company.list_of_bookings.get(i));
+						        company.list_of_bookings.remove(i);
+						        continue;
+						    }
+						    else {
+						    	if (book.equals("EXIT")){
+						    		continue;
+						    	}
+						    	else {
+						    		System.out.println("That is not a valid input");
+						    		continue;
+						    	}
+						    }
+						}
+						continue;
+		 			}
+		 			else if (userAction == 4) { //List bookings
+		 				for (int i = 0; i < company.list_of_bookings.size(); i++) {
+		 					System.out.println(company.list_of_bookings.get(i));
+		 				}
+		 				continue;
+		 			}
+					else if (userAction == 5) { //check-out
+						if (company.list_of_bookings.isEmpty()){
+							System.out.println("Your cart is empty"); 
+							continue;
+						}
+						
+						else {
+							System.out.println("Which membership do you have? \n1. Regular \n2. "
+									+ "Silver \n3. Gold \n Enter a number option");
+							int membership = input.nextInt();
+							
+							//implement discounts to total cost
+							
+							//after calculating everything
+							System.out.println("Your Bookings:");
+							System.out.println(company.list_of_bookings);
+							System.out.println("Your total cost is:");
+							System.out.println("*cost* with *membership* applied");
+						}
+					}
+					else if (userAction == 6 ) {
+						exit = true;
+					}		
 				}
-				
-				//referencing the license plate via arrayList
-				System.out.println("License plate:");
-				String plate = input.next();
-				
-				//searching for car via license plate
-				for (int i = 0; i < company.list_of_cars.size(); i ++) {
-				    if (company.list_of_cars.get(i).getLicense_plate().equals(plate)) {
-				        System.out.println("Car found:");
-				        System.out.println(company.list_of_cars.get(i));
-				        break;
-				    }
-				}
-				
-				//BOOKING INPUT
-				//time formatter - should make a formatter method
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				//part of client interface 
-				System.out.println("Start-date for rental (yyyy-MM-dd): ");
-				String start_date = input.next();
-	            LocalDate startDate = LocalDate.parse(start_date, formatter);
-				System.out.println("End-date for rental (yyyy-MM-dd): ");
-				String end_date = input.next();
-	            LocalDate endDate = LocalDate.parse(end_date, formatter);
-	            System.out.println("This date is not (yyyy-MM-dd)");
+			
+			if (action == 2) { //create a car
 	            //part of company interface
-				System.out.println("Booking id:");
-				int booking_id = input.nextInt();	
-				System.out.println("Product id:");
-				String car_id = input.next();	
+				System.out.println("Booking ID:");
+				booking_id = input.nextInt();	
+				System.out.println("Car ID:");
+				car_id = input.nextInt();	
 				System.out.println("cost:");
 				double cost = input.nextDouble();
 				System.out.println("license plate:");
 				String license_plate = input.next();
 				System.out.println("year:");
-				String year = input.next();
+				int year = input.nextInt();
 				System.out.println("make:");
 				String make = input.next();
 				System.out.println("Number of doors:");
 				int number_of_doors = input.nextInt();
+				System.out.println("Number of doors:");
+				price = input.nextDouble();
 				
-				//ADDING TO BOOKING
-				booking newBooking = new booking(startDate, endDate, booking_id, car_id, cost);
-				company.addBooking(newBooking);
-				
-				continue; //return to beginning of do-while loop
+				//ADDING TO CARS
+				car newCar = new car(license_plate, year, make, number_of_doors, price, car_id);
+				company.addCar(newCar);
 			}
-			
- 			else if (action == 2){ //book a vacation
- 				
- 				System.out.println("List of vacations:"); //prints the list of vacations and corresponding info
-				for (int i = 0; i < company.list_of_vacations.size(); i ++) {
-					System.out.println("\t" + company.list_of_vacations.get(i).toString());
-				}
-				
-				//referencing the city name via arrayList
-				System.out.println("City: ");
+			else if (action == 3) { //create a vacation
+	            //part of company interface
+				System.out.println("Booking ID:");
+				booking_id = input.nextInt();	
+				System.out.println("Vacation ID:");
+				vacation_id = input.nextInt();	
+				System.out.println("Country:");
+				String country = input.next();
+				System.out.println("City:");
 				String city = input.next();
+				System.out.println("Season:");
+				String season = input.next();
+				System.out.println("Price:");
+				price = input.nextDouble();	
 				
-				//searching for car via license plate
-				for (vacation availableVacations : company.list_of_vacations) {
-				    if (availableVacations.getCity().equals(city)) {
-				        System.out.println("City found:");
-				        System.out.println(availableVacations.toString());
-				        continue; //is break better?
-				    }
-				}
-				
-				//BOOKING INPUT
-				//part of client interface (also refer to Amanada's code)
- 				System.out.println("Start-date of vacation: ");
-				String start_date = input.next();
-				System.out.println("End-date of vacation: ");
-				String end_date = input.next();
-				//part of company interface
-				// ... 
-				continue;
- 			}
- 			else if (action == 3){ //CANCELLING A BOOKING
- 				
- 				System.out.println("List of bookings:"); //prints the list of bookings and corresponding info
-				for (int i = 0; i < company.list_of_bookings.size(); i ++) {
-					System.out.println("\t" + company.list_of_bookings.get(i).toString());
-				}
-				
- 				System.out.println("Enter booking ID you want to "
- 						+ "cancel or type EXIT to return to Main "
- 						+ "Menu");
- 				String book = input.next();
- 				
-				//searching for booking via booking ID
-				for (int i = 0; i < company.list_of_bookings.size(); i++) {
-				    if (String.valueOf(company.list_of_bookings.get(i).getBooking_id()).equals(book)) {
-				        System.out.println("Booking found:");
-				        System.out.println(company.list_of_bookings.get(i));
-				        company.list_of_bookings.remove(i);
-				        continue;
-				    }
-				    else {
-				    	if (book.equals("EXIT")){
-				    		continue;
-				    	}
-				    	else {
-				    		System.out.println("That is not a valid input");
-				    	}
-				    }
-				}
-				
-				System.out.println("Enter Y to confirm cancellation or N to discontinue: ");
-				String remove = input.next();
-				
-				if (remove.equals("Y")) {
-						//remove booking from bookings list
-				}
-				else if (remove.equals("N")) {
-						//return to main menu
-				}
-				else {
-					System.out.println("That is not a valid input");
-				}
-				continue;
- 			}
- 			else if (action == 4) { //List bookings
- 				for (int i = 0; i < bookings.size(); i++) {
- 					System.out.println(bookings.get(i));
- 				}
- 				continue;
- 			}
-			else if (action == 5) { //check-out
-				if (bookings.isEmpty()){
-					System.out.println("Your cart is empty"); 
-					continue;
-				}
-				
-				else {
-					System.out.println("Which membership do you have? \n1. Regular \n2. "
-							+ "Silver \n3. Gold \n Enter a number option");
-					int membership = input.nextInt();
-					
-					//implement discounts to total cost
-					
-					//after calculating everything
-					System.out.println("Your Bookings:");
-					System.out.println(company.list_of_bookings);
-					System.out.println("Your total cost is:");
-					System.out.println("*cost* with *membership* applied");
-				}
+				vacation newVacation = new vacation (country, city, season, price, vacation_id);
+				company.addVacation(newVacation);
 			}
 			else { //main menu 
 				System.out.println("Not a valid option");
