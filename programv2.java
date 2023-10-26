@@ -32,6 +32,7 @@ public class program {
 			int car_id = 0;
 			int vacation_id;
 			boolean exit = false;
+			String carID = null;
 			
 			while (action == 1 && exit == false){ //enter user ID
 					System.out.println("Enter a user ID:");
@@ -53,32 +54,31 @@ public class program {
 						
 						//referencing the license plate via arrayList
 						System.out.println("Car ID:");
-						String carID = input.next();
+						carID = input.next();
 						
 						//searching for car via license plate
 						for (int i = 0; i < company.list_of_cars.size(); i ++) {
 						    if (String.valueOf(company.list_of_cars.get(i).getCar_id()).equals(carID)) {
 						        System.out.println("Car found:");
 						        System.out.println(company.list_of_cars.get(i));
+								//BOOKING INPUT
+								//time formatter - should make a formatter method
+								DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+								//part of client interface 
+								System.out.println("Start-date for rental (yyyy-MM-dd): ");
+								String start_date = input.next();
+					            LocalDate startDate = LocalDate.parse(start_date, formatter);
+								System.out.println("End-date for rental (yyyy-MM-dd): ");
+								String end_date = input.next();
+					            LocalDate endDate = LocalDate.parse(end_date, formatter);
+					            System.out.println("This date is not (yyyy-MM-dd)");
+								
+								//ADDING TO BOOKING
+								booking newBooking = new booking(startDate, endDate, booking_id, company.list_of_cars.get(i).getCar_id(), company.list_of_cars.get(i).getCar_Price());
+								company.addBooking(newBooking);
 						        break;
 						    }
 						}
-						
-						//BOOKING INPUT
-						//time formatter - should make a formatter method
-						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-						//part of client interface 
-						System.out.println("Start-date for rental (yyyy-MM-dd): ");
-						String start_date = input.next();
-			            LocalDate startDate = LocalDate.parse(start_date, formatter);
-						System.out.println("End-date for rental (yyyy-MM-dd): ");
-						String end_date = input.next();
-			            LocalDate endDate = LocalDate.parse(end_date, formatter);
-			            System.out.println("This date is not (yyyy-MM-dd)");
-						
-						//ADDING TO BOOKING
-						booking newBooking = new booking(startDate, endDate, booking_id, car_id, price);
-						company.addBooking(newBooking);
 						
 						continue; //return to beginning of do-while loop
 					}
@@ -151,13 +151,13 @@ public class program {
 		 				}
 		 				continue;
 		 			}
-					else if (userAction == 5) { //check-out
+					else if (userAction == 5) { //check-out ~ w/ Johanna's code
 						if (company.list_of_bookings.isEmpty()){
 							System.out.println("Your cart is empty"); 
 							continue;
 						}
-						
-						else {
+						else if (0 == 0){
+						//else {
 							System.out.println("Which membership do you have? \n1. Regular \n2. "
 									+ "Silver \n3. Gold \n Enter a number option");
 							int membership = input.nextInt();
@@ -170,6 +170,46 @@ public class program {
 							System.out.println("Your total cost is:");
 							System.out.println("*cost* with *membership* applied");
 						}
+						
+						/////////////////////////////////
+						//show revenue of business, maybe make this a method in company and just call it here
+						else if (action == 11) {
+						    double total = 0.0;
+						    for (int i = 0; i < company.list_of_bookings.size(); i++) {
+						    	total += company.list_of_bookings.get(i).getBooking_Price();
+						    }
+						}
+						
+						boolean found = false;
+						for (int i = 0; i < company.list_of_cars.size(); i++) {
+							if (String.valueOf(company.list_of_cars.get(i).getCar_id()).equals(carID)) {
+								car c = company.list_of_cars.get(i);
+								found = true;
+							}
+							
+						}
+						if (found == false) {
+							for (int i = 0; i < company.list_of_cars.size(); i++) {
+								if (String.valueOf(company.list_of_cars.get(i).getVacation_id()).equals(carID)) {
+									car c = company.list_of_cars.get(i);
+								}
+							}
+						}
+						
+						car a = car.list_of_bookings.get(i).getBooking_Price();
+						
+//						for (int i = 0; i < company.list_of_bookings.size(); i++) {
+//							double a = company.list_of_bookings.get(i).getBooking_Price();
+//							int e = company.list_of_bookings.get(i).getBooking_id();
+//							booking b = company.list_of_bookings.get(i);
+//							LocalDate c = company.list_of_bookings.get(i).getStart_date();
+//							LocalDate d = company.list_of_bookings.get(i).getEnd_date();
+//							String f = String.format("Product id: %1$d | Items: %1$s , Dates: %1$t - %1$t |"
+//									+ " Price: %1$f ",d, b, c, d, a);
+//							System.out.println(f);
+//						}
+							
+						continue;
 					}
 					else if (userAction == 6 ) {
 						exit = true;
