@@ -6,9 +6,9 @@ public class Company {
 	
 	public ArrayList<Car> list_of_cars = new ArrayList<Car>();
 	
-	public ArrayList<Vacation> list_of_vacations;
+	public ArrayList<Vacation> list_of_vacations = new ArrayList<Vacation>();
 	
-	public ArrayList<Booking> list_of_bookings;
+	public ArrayList<Booking> list_of_bookings = new ArrayList<Booking>();
 	
 	public double revenue;
 	
@@ -29,5 +29,11 @@ public class Company {
 		this.list_of_bookings.add(new_booking);
 	}
 	
-
+	public double getCostfromBookingID(int booking_id) {
+		for (int i = 0; i < list_of_bookings.size(); i ++)
+			if (list_of_bookings.get(i).getBookingID() == booking_id) {
+				return list_of_bookings.get(i).getCost();
+			}
+		return 0;
+	}
 }

@@ -18,6 +18,14 @@ public class Vacation {
 		this.season = season;
 	}
 	
+	public int getVacationID() {
+		return this.vacation_id;
+	}
+	
+	public double getPrice() {
+		return this.price;
+	}
+	
 	public String toString() {
 		return "country: " + this.country + "\tcity: " + this.city + "\tseason " + this.season + "\tprice: " + this.price + "\tid: " + vacation_id;
 	}

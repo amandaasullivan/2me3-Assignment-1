@@ -14,6 +14,7 @@ public class Car {
 	
 	private int car_id;
 	
+	
 	public Car(String license_plate, int year, String make, int number_of_doors, double price, int car_id) {
 		this.license_plate = license_plate;
 		this.year = year;
@@ -26,5 +27,12 @@ public class Car {
 		return "license plate: " + this.license_plate + "\tyear: " + this.year + "\tmake: " + this.make + "\tnumber of doors: " + this.number_of_doors + "\tprice: " + this.price + "\tid: " + car_id;
 	}
 	
+	public int getCarID (){
+		return this.car_id;
+	}
+	
+	public double getPrice (){
+		return this.price;
+	}
 
 }
