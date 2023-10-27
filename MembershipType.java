@@ -1,5 +1,4 @@
-package Reservation_classes;
-
+package Service;
 public enum MembershipType {
 
 	Regular,

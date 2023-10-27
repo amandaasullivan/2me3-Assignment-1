@@ -1,7 +1,6 @@
-package Reservation_classes;
-
+package Service;
 public interface MembershipDiscount {
 
-	public abstract void apply_discount(MembershipType membership, int cost);
+	public abstract double apply_discount(MembershipType membership, double cost);
 
 }

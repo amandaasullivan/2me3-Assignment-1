@@ -1,5 +1,4 @@
-package Reservation_classes;
-
+package Service;
 public class Car {
 
 	private String license_plate;
@@ -12,12 +11,28 @@ public class Car {
 
 	private double price;
 	
-	public Car(String license_plate, int year, String make, int number_of_doors, double price) {
+	private int car_id;
+	
+	
+	public Car(String license_plate, int year, String make, int number_of_doors, double price, int car_id) {
 		this.license_plate = license_plate;
 		this.year = year;
 		this.make = make;
 		this.number_of_doors = number_of_doors;
 		this.price = price;
+		this.car_id = car_id;
+	}
+	
+	public String toString() {
+		return "license plate: " + this.license_plate + "\tyear: " + this.year + "\tmake: " + this.make + "\tnumber of doors: " + this.number_of_doors + "\tprice: " + this.price + "\tid: " + car_id;
+	}
+	
+	public int getCarID (){
+		return this.car_id;
+	}
+	
+	public double getPrice (){
+		return this.price;
 	}
 
 }
